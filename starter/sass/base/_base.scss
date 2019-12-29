@@ -1,0 +1,21 @@
+/* Basic Browser reset */
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    /* box-sizing by default is not inheritable */
+    box-sizing: inherit;
+}
+
+
+/* Setting default root font-size to use rem unit */
+html {
+    /* Instead of using px for default font-size, use % for better user experience and usability.  */
+    font-size: 62.5%;
+}
+
+
+body {
+    box-sizing: border-box;
+}
