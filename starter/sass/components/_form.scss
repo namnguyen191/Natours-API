@@ -54,7 +54,9 @@
     }
 
     &__radio-input {
-        display: none;
+        position: fixed;
+        opacity: 0;
+        
     }
 
     &__radio-label {
@@ -92,5 +94,9 @@
 
     &__radio-input:checked ~ &__radio-label &__radio-button::after {
         opacity: 1;
+    }
+
+    &__radio-input:focus ~ &__radio-label &__radio-button {
+        outline: .1rem solid blue;
     }
 }
