@@ -14,6 +14,17 @@
         @include absCenter;
         width: 75%;
         background-color: $color-white;
+        
+        @include respond(tab-land){
+            background-image: 
+                linear-gradient( 
+                    to right bottom, 
+                    rgba($color-white, 0.8), 
+                    rgba($color-white, 0.8)), 
+                url(../img/nat-4.jpg);
+            background-size: cover;
+        }
+
         box-shadow: 0 2rem 4rem rgba($color-black, .2);
         border-radius: .3rem;
         display: table;
@@ -33,6 +44,15 @@
         display: table-cell;
         vertical-align: middle;
         padding: 3rem 5rem;
+    }
+
+    @include respond(tab-land){
+        &__left {
+            display: none;
+        }
+        &__right {
+            width: 100%;
+        }
     }
 
     &__img {
