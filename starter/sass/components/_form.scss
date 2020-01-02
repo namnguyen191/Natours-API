@@ -108,4 +108,8 @@
     &__radio-input:focus ~ &__radio-label &__radio-button {
         outline: .1rem solid blue;
     }
+
+    &__radio-input:checked ~ &__radio-label &__radio-button {
+        outline: none;
+    }
 }

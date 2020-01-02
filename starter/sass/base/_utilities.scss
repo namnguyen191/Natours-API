@@ -50,3 +50,9 @@
     margin-top: 1.5rem !important;
 }
 
+.u-high-light-text {
+    text-transform: uppercase !important; 
+    font-weight: 700 !important;
+    color: $color-primary-light !important;
+    border-bottom: .1rem solid $color-grey-light-1 !important;
+}
