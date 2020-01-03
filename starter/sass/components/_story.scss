@@ -26,12 +26,16 @@
         //Require: height, width and float
         -webkit-shape-outside: circle(50% at 50% 50%);
         shape-outside: circle(50% at 50% 50%);
-        -webkit-clip-path: circle(50% at 50% 50%);
-        clip-path: circle(50% at 50% 50%);
+        
         transform: translateX(-3rem) skewX(12deg);
         //Fixing the weird line when applying the filter on the image
         overflow: hidden;
         position: relative;
+
+        @supports (-webkit-clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%)) or (clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%)) {
+            -webkit-clip-path: circle(50% at 50% 50%);
+            clip-path: circle(50% at 50% 50%);
+        }
 
         @include respond(phone) {
             transform: translateX(-3rem) skewX(0);
