@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         <link href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
             <!-- take this out when deploy -->
          <link rel="stylesheet" href="css/icon-font.css">
@@ -403,15 +404,19 @@
             </div>
         </footer>
 
-        <div class="popup" id="popup">
+        <div class="popup" id="popup" onclick="location.href='#/';">
             <div class="popup__content">
+                <script>
+                     $('.popup__content').click(function(e) {
+                        e.stopPropagation();
+                });
+                </script>
                 <div class="popup__left">
                     <img src="img/nat-8.jpg" alt="Tour Photo" class="popup__img">
                     <img src="img/nat-9.jpg" alt="Tour Photo" class="popup__img">
                 </div>
                 <div class="popup__right">
                     <a href="#/" class="popup__close">&times;</a>
-                    
                     <h2 class="heading-secondary u-margin-bottom-small">Start booking now</h2>
                     <h3 class="heading-tertiary u-margin-bottom-small">Important &ndash; Please read these terms before booking</h3>
                     <p class="popup__text">
