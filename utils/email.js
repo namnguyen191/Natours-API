@@ -55,7 +55,7 @@ module.exports = class Email {
         };
 
         // Create a transport and send email
-        console.log(this.to);
+        //console.log(this.to);
         await this.newTransport().sendMail(mailOptions);
     }
 
