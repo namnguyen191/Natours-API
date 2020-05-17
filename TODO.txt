@@ -1,0 +1,2 @@
+Mapbox: on hover show details
+My bookings: show a separate view with more relevant details
