@@ -21,7 +21,7 @@ const createSendToken = (user, statusCode, req, res) => {
     const cookieOptions = {
         expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * dayToMilSecConv),
         httpOnly: true,
-        secure: true // The seconds secure options are specifically for heroku
+        secure: req.secure || req.headers('x-forwarded-proto') === 'https' // The seconds secure options are specifically for heroku
     };
     res.cookie('jwt', token, cookieOptions);
     
@@ -46,7 +46,7 @@ exports.signup = catchAsync(async (req, res, next) => {
     });
     const url = `${req.protocol}://${req.get('host')}/me`;
     await new Email(newUser, url).sendWelcome();
-    createSendToken(newUser, 201, res, req);
+    createSendToken(newUser, 201, req, res);
 });
 
 exports.login = catchAsync(async (req, res, next) => {
@@ -62,7 +62,7 @@ exports.login = catchAsync(async (req, res, next) => {
     }
 
     // If everything is ok, send token to client
-    createSendToken(user, 200, res, req);
+    createSendToken(user, 200, req, res);
 });
 
 exports.protect = catchAsync(async (req, res, next) => {
@@ -199,7 +199,7 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
     // Update changedPasswordAt property for the user
 
     // Log the user in, send JWT
-    createSendToken(user, 200, res, req);
+    createSendToken(user, 200, req, res);
 });
 
 exports.updatePassword = catchAsync(async (req, res, next) => {
@@ -217,5 +217,5 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
     await user.save();
 
     // Log user in, send JWT
-    createSendToken(user, 200, res, req);
+    createSendToken(user, 200, req, res);
 });
