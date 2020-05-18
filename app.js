@@ -8,6 +8,7 @@ const xss = require('xss-clean');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
+const cors = require('cors');
 
 const tourRouter = require('./routes/tourRoutes');
 const userRouter = require('./routes/userRoutes');
@@ -30,6 +31,18 @@ app.set('views', path.join(__dirname, 'views'));
 
 
 // Global Middlewares
+
+// Implement cors
+app.use(cors());
+// Front end at www.natours.com and only allow that only origin
+// app.use(cors({
+//   origin: 'https://www.natours.com'
+// }));
+
+// options is just another type of http request
+// Allow complicated requests for all ( patch, delete...)
+app.options('*', cors());
+
 // Serving static files
 app.use(express.static(path.join(__dirname, 'public')));
 
