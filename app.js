@@ -55,14 +55,8 @@ if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev')); // For logging request
 }
 
-// Use before body parser because we need a raw body to work with stripe
-app.post('/webhook-checkout', express.raw({ type: 'application/json' }), bookingController.webhookCheckout);
-
 // Body parser 
-// (reading data from body into req.body). Limit it to 10kb
-app.use(express.json({
-  limit: '10kb'
-}));
+
 // COOKIE
 app.use(cookieParser());
 // FORM
@@ -79,6 +73,13 @@ app.use(hpp({
   whitelist: ['duration', 'ratingsAverage', 'ratingsQuantity', 'maxGroupSize', 'difficulty', 'price']
 }));
 
+// Use before body parser because we need a raw body to work with stripe
+app.post('/webhook-checkout', express.raw({ type: 'application/json' }), bookingController.webhookCheckout);
+
+// (reading data from body into req.body). Limit it to 10kb
+app.use(express.json({
+  limit: '10kb'
+}));
 
 
 // Limit request for API
