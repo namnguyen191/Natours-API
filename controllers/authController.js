@@ -21,7 +21,7 @@ const createSendToken = (user, statusCode, req, res) => {
     const cookieOptions = {
         expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * dayToMilSecConv),
         httpOnly: true,
-        secure: req.secure || req.headers('x-forwarded-proto') === 'https' // The seconds secure options are specifically for heroku
+        secure: true // The seconds secure options are specifically for heroku
     };
     res.cookie('jwt', token, cookieOptions);
     
