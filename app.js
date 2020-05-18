@@ -22,6 +22,9 @@ const app = express();
 // Text compression
 app.use(compression());
 
+// Trust proxy for heroku
+app.enable('trust proxy');
+
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 

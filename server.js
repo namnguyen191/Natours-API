@@ -38,5 +38,10 @@ process.on('unhandledRejection', err => {
   });
 });
 
-
-
+// Heroku send sigterm to shutdown server for maintainance
+process.on('SIGTERM', () => {
+  console.log('SIGTERM RECEIVED. SHUTTING DOWN!');
+  server.close(() => {
+    console.log('Process terminated');
+  });
+});
