@@ -30,7 +30,6 @@ app.enable('trust proxy');
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));
 
-
 // Global Middlewares
 
 // Implement cors
@@ -52,10 +51,10 @@ app.use(helmet());
 
 // Development logging
 if (process.env.NODE_ENV === 'development') {
-  app.use(morgan('dev')); // For logging request
+    app.use(morgan('dev')); // For logging request
 }
 
-// Body parser 
+// Body parser
 
 // COOKIE
 app.use(cookieParser());
@@ -69,26 +68,40 @@ app.use(mongoSantitize());
 app.use(xss());
 
 // Prevent parameter polution
-app.use(hpp({
-  whitelist: ['duration', 'ratingsAverage', 'ratingsQuantity', 'maxGroupSize', 'difficulty', 'price']
-}));
+app.use(
+    hpp({
+        whitelist: [
+            'duration',
+            'ratingsAverage',
+            'ratingsQuantity',
+            'maxGroupSize',
+            'difficulty',
+            'price'
+        ]
+    })
+);
 
 // Use before body parser because we need a raw body to work with stripe
-app.post('/webhook-checkout', express.raw({ type: 'application/json' }), bookingController.webhookCheckout);
+app.post(
+    '/webhook-checkout',
+    express.raw({ type: 'application/json' }),
+    bookingController.webhookCheckout
+);
 
 // (reading data from body into req.body). Limit it to 10kb
-app.use(express.json({
-  limit: '10kb'
-}));
-
+app.use(
+    express.json({
+        limit: '10kb'
+    })
+);
 
 // Limit request for API
 // Converting hour to ms
 const hourToMsConv = 60 * 60 * 1000;
 const limiter = rateLimit({
-  max: 100,
-  windowMs: 1 * hourToMsConv,
-  message: 'Too many request from this IP, please try again in an hour.'
+    max: 100,
+    windowMs: 1 * hourToMsConv,
+    message: 'Too many request from this IP, please try again in an hour.'
 });
 app.use('/api', limiter);
 
@@ -111,11 +124,11 @@ app.use('/api/v1/reviews', reviewRouter);
 app.use('/api/v1/bookings', bookingRouter);
 
 app.all('*', (req, res, next) => {
-  // res.status(404).json({
-  //   status: 'Fail',
-  //   message: `Can't find ${req.originalUrl} on this server!`
-  // });
-  next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
+    // res.status(404).json({
+    //   status: 'Fail',
+    //   message: `Can't find ${req.originalUrl} on this server!`
+    // });
+    next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
 });
 
 app.use(globalErrorHandler);
